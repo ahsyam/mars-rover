@@ -13,7 +13,8 @@ type Rover struct {
 }
 
 func (r *Rover) Init(x, y int, direction string) *Rover {
-	r.currentposition = position{x, y, direction}
+	directions := Directions{North{}, East{}, West{}, South{}}
+	r.currentposition = position{x, y, direction, directions}
 	return r
 }
 
