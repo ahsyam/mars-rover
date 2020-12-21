@@ -13,54 +13,28 @@ type position struct {
 
 func (p *position) MovePosition(step string) *position {
 	//check the movement step and change the X,Y and direction based on it
-	if step == FORWARD {
-		switch p.Direction {
-		case NORTH:
-			p.Y++
-		case EAST:
-			p.X++
-		case SOUTH:
-			p.Y--
-		case WEST:
-			p.X--
-		}
-	}
-	if step == RIGHT {
-		switch p.Direction {
-		case NORTH:
-			p.Direction = EAST
-		case EAST:
-			p.Direction = SOUTH
-		case SOUTH:
-			p.Direction = WEST
-		case WEST:
-			p.Direction = NORTH
-		}
-	}
-	if step == LEFT {
-		switch p.Direction {
-		case NORTH:
-			p.Direction = WEST
-		case EAST:
-			p.Direction = NORTH
-		case SOUTH:
-			p.Direction = EAST
-		case WEST:
-			p.Direction = SOUTH
-		}
-	}
-	if step == BACKWARD {
-		switch p.Direction {
-		case NORTH:
-			p.Y--
-		case EAST:
-			p.X--
-		case SOUTH:
-			p.Y++
-		case WEST:
-			p.X++
-		}
+	var direction direction
+
+	switch p.Direction {
+	case NORTH:
+		direction = North{}
+	case EAST:
+		direction = East{}
+	case WEST:
+		direction = West{}
+	case SOUTH:
+		direction = South{}
 	}
 
+	switch step {
+	case FORWARD:
+		return direction.forward(p)
+	case BACKWARD:
+		return direction.backward(p)
+	case RIGHT:
+		return direction.right(p)
+	case LEFT:
+		return direction.left(p)
+	}
 	return p
 }
